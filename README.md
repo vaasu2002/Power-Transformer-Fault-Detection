@@ -4,7 +4,7 @@
 
 Step 1
 ```
-git clone https://github.com/vaasu2002/Detecting-IOT-Sensor-Failures-using-Machine-Learning.git
+https://github.com/vaasu2002/sih-ml-training-pipeline.git
 ```
 
 Step 2
