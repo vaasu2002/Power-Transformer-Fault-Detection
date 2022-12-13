@@ -1,0 +1,8 @@
+pymongo[srv]==4.2.0
+from-root
+pandas
+scipy
+dill
+PyYAML
+imblearn
+-e .
