@@ -10,7 +10,8 @@ columns:
   - IL2: float               
   - IL3: float               
   - VL12: float             
-  - VL23: float              
+  - VL23: float
+  - MOG_A: float              
   - VL31: float              
   - INUT: float              
 
@@ -22,7 +23,8 @@ numerical_columns:
   - VL1               
   - VL2               
   - VL3               
-  - IL1             
+  - IL1   
+  - MOG_A          
   - IL2              
   - IL3               
   - VL12             
@@ -32,6 +34,5 @@ numerical_columns:
 
 drop_columns:
   - DeviceTimeStamp
-  - MOG_A
   - OTI_A
   - OTI_T
