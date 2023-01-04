@@ -23,7 +23,7 @@ class DataValidation:
     def validate_number_of_columns(self,dataframe:pd.DataFrame)->bool:
         try:
             number_of_columns = len(self._schema_config["columns"])
-            print(number_of_columns)
+
             if(len(dataframe.columns) == number_of_columns):
                 return True
 
@@ -31,8 +31,10 @@ class DataValidation:
         except Exception as e:
             raise SensorException(e,sys)
 
+
     def drop_zero_std_columns(self,dataframe:pd.DataFrame):
         pass
+
 
     def is_numerical_column_exist(self,dataframe:pd.DataFrame)->bool:
         try:
@@ -87,10 +89,9 @@ class DataValidation:
             write_yaml_file(file_path=drift_report_file_path,content=report)
             return status
 
-
-
         except Exception as e:
             raise SensorException(e,sys)
+
 
     def initiate_data_validation(self)->DataValidationArtifact:
         try:
