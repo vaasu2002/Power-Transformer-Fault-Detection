@@ -8,8 +8,8 @@ from transformer.entity.config_entity import TrainingPipelineConfig,DataIngestio
 from transformer.entity.artifact_entity import DataIngestionArtifact,DataValidationArtifact,DataTransformationArtifact
 from transformer.components.data_ingestion import DataIngestion
 from transformer.components.data_validation import DataValidation
-# from transformer.components.data_transformation import DataTransformation
-# from transformer.components.model_trainer import ModelTrainer
+from transformer.components.data_transformation import DataTransformation
+from transformer.components.model_trainer import ModelTrainer
 
 class TrainPipeline:
     def __init__(self):
@@ -103,9 +103,9 @@ class TrainPipeline:
 
             data_validation_artifact = self.start_data_validation(data_ingestion_artifact=data_ingestion_artifact)
 
-            # data_transformation_artifact = self.start_data_transformation(data_validation_artifact=data_validation_artifact)
+            data_transformation_artifact = self.start_data_transformation(data_validation_artifact=data_validation_artifact)
 
-            # model_trainer_artifact = self.start_model_trainer(data_transformation_artifact)
+            model_trainer_artifact = self.start_model_trainer(data_transformation_artifact)
 
         except Exception as e:
             raise SensorException(e,sys)        

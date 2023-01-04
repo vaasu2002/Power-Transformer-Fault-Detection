@@ -3,13 +3,13 @@ import os
 
 from transformer.constant.s3_bucket import TRAINING_BUCKET_NAME
 
-TARGET_COLUMN = "class"
+TARGET_COLUMN = "MOG_A"
 PIPELINE_NAME: str = "sensor"
 ARTIFACT_DIR: str = "artifact"
 
 # common file name
 
-FILE_NAME: str = "sensor.csv"
+FILE_NAME: str = "transformer_data.csv"
 
 TRAIN_FILE_NAME: str = "train.csv"
 
