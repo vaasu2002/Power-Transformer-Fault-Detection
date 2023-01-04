@@ -1,5 +1,4 @@
 # Importing Dependencies
-
 import sys
 
 import numpy as np
@@ -21,54 +20,35 @@ from transformer.logger import logging
 from transformer.ml.model.estimator import TargetValueMapping
 from transformer.utils.main_utils import save_numpy_array_data, save_object
 
+
 class DataTransformation:
-    def __init__(self,data_validation_artifact:DataValidationArtifact,
-                data_transformation_config:DataTransformationConfig):
-
-        """ Creating the data transformation component of pipeline
-            according to the flowchart.
-
-            Args:
-                self (object): Output reference of data ingestion artifact stage
-                self (object): Configuration for data transformation
-        """
+    def __init__(self,data_validation_artifact:DataValidationArtifact,data_transformation_config:DataTransformationConfig):
         try:
             self.data_validation_artifact = data_validation_artifact
             self.data_transformation_config = data_transformation_config
         except Exception as e:
-            raise SensorException(e, sys)
+            print(e)
+
 
     @staticmethod
     def read_data(file_path) -> pd.DataFrame:
         try:
             return pd.read_csv(file_path)
         except Exception as e:
-            raise SensorException(e, sys)
+            print(e)
 
-    
+
     @classmethod
     def get_data_transformer_object(cls)->Pipeline:
-        """ Creating preprocessing object for data transformation 
-
-        Raises:
-            SensorException
-
-        Returns:
-            Pipeline: Preprocessing Pipeline object
-        """
+        """ Creating preprocessing object for data transformation"""
         try:
             robust_scaler = RobustScaler() # initializing RobustScaler
-
-            simple_imputer = SimpleImputer(strategy="constant", fill_value=0) # initializing SimpleImputer
-
             # Creating preprocessing pipeline
             preprocessor_pipeline = Pipeline(
                 steps=[
-                    ("Imputer", simple_imputer), # Dealing with missing valuea by replacing them with zero
                     ("RobustScaler", robust_scaler) # Feature scaling and handling outliers
                     ]
             )
-            
             return preprocessor_pipeline
 
         except Exception as e:
@@ -80,23 +60,21 @@ class DataTransformation:
             print(self.data_validation_artifact.valid_train_file_path)
             train_df = DataTransformation.read_data(self.data_validation_artifact.valid_train_file_path) 
             test_df = DataTransformation.read_data(self.data_validation_artifact.valid_test_file_path)
+            print(train_df.shape)
+            print(test_df.shape)
+
             preprocessor_pipeline = self.get_data_transformer_object()
 
 
             # Spliting Training DataFrame
             input_feature_train_df = train_df.drop(columns=[TARGET_COLUMN], axis=1) # Input Feature
             target_feature_train_df = train_df[TARGET_COLUMN] # Target Feature
-            target_feature_train_df = target_feature_train_df.replace( TargetValueMapping().to_dict())
-
 
             # Spliting Testing DataFrame
             input_feature_test_df = test_df.drop(columns=[TARGET_COLUMN], axis=1) # Input Feature
             target_feature_test_df = test_df[TARGET_COLUMN] # Target Feature
-            target_feature_test_df = target_feature_test_df.replace(TargetValueMapping().to_dict())
 
-            
             preprocessor_obj = preprocessor_pipeline.fit(input_feature_train_df)
-            
 
             logging.info(f"Performing PreProcessing(RobustScaler and SimpleImputer) on training data")
             transformed_input_train_feature = preprocessor_obj.transform(input_feature_train_df)
@@ -144,4 +122,4 @@ class DataTransformation:
             return data_transformation_artifact
 
         except Exception as e:
-            raise SensorException(e, sys) from e 
+            print(e)
