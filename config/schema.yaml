@@ -1,0 +1,37 @@
+columns:
+  - OTI: float
+  - WTI: float
+  - ATI: float            
+  - OLI: float               
+  - VL1: float                
+  - VL2: float               
+  - VL3: float               
+  - IL1: float              
+  - IL2: float               
+  - IL3: float               
+  - VL12: float             
+  - VL23: float              
+  - VL31: float              
+  - INUT: float              
+
+numerical_columns:
+  - OTI
+  - WTI
+  - ATI           
+  - OLI              
+  - VL1               
+  - VL2               
+  - VL3               
+  - IL1             
+  - IL2              
+  - IL3               
+  - VL12             
+  - VL23              
+  - VL31              
+  - INUT   
+
+drop_columns:
+  - DeviceTimeStamp
+  - MOG_A
+  - OTI_A
+  - OTI_T
